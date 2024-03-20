@@ -1,0 +1,63 @@
+{
+  "fieldConfig": {
+    "defaults": {
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "green",
+            "value": null
+          }
+        ]
+      },
+      "mappings": [],
+      "color": {
+        "mode": "thresholds"
+      },
+      "unit": "none"
+    },
+    "overrides": []
+  },
+  "gridPos": {
+    "h": 9,
+    "w": 12,
+    "x": 12,
+    "y": 63
+  },
+  "id": 55,
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": [
+        "sum"
+      ],
+      "fields": ""
+    },
+    "orientation": "horizontal",
+    "text": {},
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "minVizHeight": 10,
+    "minVizWidth": 0
+  },
+  "pluginVersion": "7.5.5",
+  "targets": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusdata"
+      },
+      "editorMode": "builder",
+      "exemplar": true,
+      "expr": "druid_query_segment_time_bucket{pod=~\".*historicals.*\"}",
+      "format": "heatmap",
+      "interval": "",
+      "legendFormat": "{{le}}",
+      "range": true,
+      "refId": "A"
+    }
+  ],
+  "title": "Query segment Time Histogram (Seconds taken to query individual segment)",
+  "type": "bargauge",
+  "datasource": null
+}

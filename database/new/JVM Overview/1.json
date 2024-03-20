@@ -1,0 +1,63 @@
+{
+  "fieldConfig": {
+    "defaults": {
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "green",
+            "value": null
+          },
+          {
+            "color": "red",
+            "value": 2750
+          }
+        ]
+      },
+      "mappings": [],
+      "color": {
+        "mode": "thresholds"
+      }
+    },
+    "overrides": []
+  },
+  "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 12,
+    "h": 8
+  },
+  "id": 51,
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": [
+        "lastNotNull"
+      ],
+      "fields": ""
+    },
+    "text": {},
+    "showThresholdLabels": false,
+    "showThresholdMarkers": true,
+    "orientation": "auto"
+  },
+  "pluginVersion": "7.5.5",
+  "targets": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusdata"
+      },
+      "editorMode": "builder",
+      "exemplar": true,
+      "expr": "druid_jvm_gc_cpu_total",
+      "interval": "",
+      "legendFormat": "{{pod}}",
+      "range": true,
+      "refId": "A"
+    }
+  ],
+  "title": "JVM GC Cpu Total",
+  "type": "gauge",
+  "datasource": null
+}

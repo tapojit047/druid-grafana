@@ -1,0 +1,61 @@
+{
+  "fieldConfig": {
+    "defaults": {
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "green",
+            "value": null
+          }
+        ]
+      },
+      "mappings": [],
+      "color": {
+        "mode": "thresholds"
+      },
+      "unit": "none"
+    },
+    "overrides": []
+  },
+  "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 12,
+    "h": 8
+  },
+  "id": 53,
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": [
+        "sum"
+      ],
+      "fields": ""
+    },
+    "orientation": "horizontal",
+    "text": {},
+    "displayMode": "gradient",
+    "showUnfilled": true,
+    "minVizHeight": 10,
+    "minVizWidth": 0
+  },
+  "pluginVersion": "7.5.5",
+  "targets": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheusdata"
+      },
+      "editorMode": "builder",
+      "expr": "count by(le) (druid_query_time_bucket)",
+      "format": "heatmap",
+      "legendFormat": "{{le}}",
+      "range": true,
+      "refId": "A"
+    }
+  ],
+  "title": "Query Time Histogram (Seconds taken to complete a query)",
+  "type": "bargauge",
+  "datasource": null
+}

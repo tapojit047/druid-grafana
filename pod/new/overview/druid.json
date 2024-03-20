@@ -1,0 +1,23 @@
+{
+  "datasource": "Prometheus",
+  "fieldConfig": {
+    "defaults": {},
+    "overrides": []
+  },
+  "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 12,
+    "h": 8
+  },
+  "id": 23763571993,
+  "options": {
+    "mode": "html",
+    "content": "<p style=\"text-align:center;\">\n    <img src=\"https://druid.apache.org/img/druid_nav.png\" height=\"80\" width=\"180\">\n</p>"
+  },
+  "pluginVersion": "7.5.5",
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "KubeDB Managed Druid",
+  "type": "text"
+}

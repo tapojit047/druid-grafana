@@ -1,0 +1,79 @@
+{
+  "datasource": "Prometheus",
+  "fieldConfig": {
+    "defaults": {
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "green",
+            "value": null
+          },
+          {
+            "color": "red",
+            "value": 0
+          },
+          {
+            "color": "dark-green",
+            "value": 1
+          }
+        ]
+      },
+      "mappings": [
+        {
+          "from": "",
+          "id": 0,
+          "text": "UP",
+          "to": "",
+          "type": 1,
+          "value": "1"
+        },
+        {
+          "from": "",
+          "id": 1,
+          "text": "Down",
+          "to": "",
+          "type": 1,
+          "value": "0"
+        }
+      ]
+    },
+    "overrides": []
+  },
+  "gridPos": {
+    "h": 4,
+    "w": 5,
+    "x": 5,
+    "y": 1
+  },
+  "id": 23763571993,
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": [
+        "mean"
+      ],
+      "fields": ""
+    },
+    "orientation": "auto",
+    "text": {},
+    "textMode": "value",
+    "colorMode": "value",
+    "graphMode": "none",
+    "justifyMode": "auto"
+  },
+  "pluginVersion": "7.5.5",
+  "targets": [
+    {
+      "exemplar": true,
+      "expr": "min(druid_service_heartbeat{job=\"$app\"})",
+      "interval": "",
+      "legendFormat": "{{pod}}",
+      "refId": "A"
+    }
+  ],
+  "title": "Druid Status",
+  "type": "stat",
+  "timeFrom": null,
+  "timeShift": null
+}
