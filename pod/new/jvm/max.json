@@ -1,0 +1,61 @@
+{
+  "datasource": "Prometheus",
+  "description": "",
+  "fieldConfig": {
+    "defaults": {
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "white",
+            "value": null
+          },
+          {
+            "color": "white",
+            "value": 80
+          }
+        ]
+      },
+      "mappings": [],
+      "unit": "MiB"
+    },
+    "overrides": []
+  },
+  "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 12,
+    "h": 8
+  },
+  "id": 23763571993,
+  "options": {
+    "reduceOptions": {
+      "values": false,
+      "calcs": [
+        "mean"
+      ],
+      "fields": ""
+    },
+    "orientation": "auto",
+    "text": {},
+    "textMode": "auto",
+    "colorMode": "value",
+    "graphMode": "none",
+    "justifyMode": "auto"
+  },
+  "pluginVersion": "7.5.5",
+  "targets": [
+    {
+      "exemplar": true,
+      "expr": "druid_jvm_mem_max{job=\"$app\", pod=\"$pod\", memKind=\"nonheap\"}/ (1024 * 1024)",
+      "interval": "",
+      "intervalFactor": 1,
+      "legendFormat": "",
+      "refId": "A"
+    }
+  ],
+  "timeFrom": null,
+  "timeShift": null,
+  "title": "Total Segment Size",
+  "type": "stat"
+}
