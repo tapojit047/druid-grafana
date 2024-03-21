@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1710940026116,
+  "iteration": 1711021229523,
   "links": [],
   "panels": [
     {
@@ -34,7 +34,8 @@
       "type": "row"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
+      "description": "Metric indicating the druid pod is up.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -76,7 +77,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 12,
         "x": 0,
         "y": 1
@@ -101,7 +102,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_service_heartbeat{job=\"$app\", pod=\"$pod\"}",
+          "expr": "druid_service_heartbeat{job=\"$app\", namespace=\"$namespace\", pod=\"$pod\", namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -113,7 +114,8 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
+      "description": "Indicator of connection status. 1 for connected, 0 for disconnected. Emitted once per monitor period.",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -155,7 +157,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 12,
         "x": 12,
         "y": 1
@@ -180,7 +182,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_zk_connected{job=\"$app\", pod=\"$pod\"}",
+          "expr": "druid_zk_connected{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -198,7 +200,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 5
       },
       "id": 12,
       "panels": [],
@@ -210,7 +212,8 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
+      "description": "Used memory",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -221,7 +224,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 6
       },
       "hiddenSeries": false,
       "id": 10,
@@ -252,7 +255,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(increase(druid_jvm_mem_used{job=\"$app\", pod=\"$pod\"}[$__range])) by (pod)",
+          "expr": "avg(increase(druid_jvm_mem_used{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}[$__range])) by (pod)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -305,7 +308,8 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
+      "description": "Pool used",
       "fieldConfig": {
         "defaults": {},
         "overrides": []
@@ -316,7 +320,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 6
       },
       "hiddenSeries": false,
       "id": 14,
@@ -346,7 +350,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(increase(druid_jvm_pool_used{job=\"$app\", pod=\"$pod\"}[$__range])) by (pod)",
+          "exemplar": true,
+          "expr": "avg(increase(druid_jvm_pool_used{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}[$__range])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -394,7 +399,8 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
+      "description": "Bufferpool count",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -443,7 +449,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 15
       },
       "id": 16,
       "options": {
@@ -468,8 +474,10 @@
             "uid": "prometheusdata"
           },
           "editorMode": "builder",
-          "expr": "druid_jvm_bufferpool_count{bufferpoolName=\"direct\", job=\"$app\", pod=\"$pod\"}",
+          "exemplar": true,
+          "expr": "druid_jvm_bufferpool_count{bufferpoolName=\"direct\", job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}",
           "hide": false,
+          "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
           "refId": "E"
@@ -479,7 +487,8 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
+      "datasource": "${datasource}",
+      "description": "Count of CPU time in Nanoseconds spent on garbage collection.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -506,7 +515,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 15
       },
       "id": 18,
       "options": {
@@ -531,7 +540,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "druid_jvm_gc_cpu_total{job=\"$app\", pod=\"$pod\"}",
+          "expr": "druid_jvm_gc_cpu_total{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -542,8 +551,8 @@
       "type": "gauge"
     },
     {
-      "datasource": "Prometheus",
-      "description": "",
+      "datasource": "${datasource}",
+      "description": "Initial nonHeap memory",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -568,7 +577,7 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 24
+        "y": 23
       },
       "id": 22,
       "options": {
@@ -590,7 +599,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_jvm_mem_init{job=\"$app\", pod=\"$pod\", memKind=\"nonheap\"}/ (1024 * 1024)",
+          "expr": "druid_jvm_mem_init{job=\"$app\", pod=\"$pod\", memKind=\"nonheap\", namespace=\"$namespace\"}/ (1024 * 1024)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -603,8 +612,8 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
-      "description": "",
+      "datasource": "${datasource}",
+      "description": "Initial Heap memory",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -629,7 +638,7 @@
         "h": 6,
         "w": 7,
         "x": 8,
-        "y": 24
+        "y": 23
       },
       "id": 20,
       "options": {
@@ -651,7 +660,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_jvm_mem_init{job=\"$app\", pod=\"$pod\", memKind=\"heap\"}/ (1024 * 1024)",
+          "expr": "druid_jvm_mem_init{job=\"$app\", pod=\"$pod\", memKind=\"heap\", namespace=\"$namespace\"}/ (1024 * 1024)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -664,8 +673,8 @@
       "type": "stat"
     },
     {
-      "datasource": "Prometheus",
-      "description": "",
+      "datasource": "${datasource}",
+      "description": "Max memory",
       "fieldConfig": {
         "defaults": {
           "mappings": [],
@@ -690,7 +699,7 @@
         "h": 6,
         "w": 9,
         "x": 15,
-        "y": 24
+        "y": 23
       },
       "id": 24,
       "options": {
@@ -712,7 +721,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_jvm_mem_max{job=\"$app\", pod=\"$pod\", memKind=\"heap\"}/ (1024 * 1024)",
+          "expr": "druid_jvm_mem_max{job=\"$app\", pod=\"$pod\", memKind=\"heap\", namespace=\"$namespace\"}/ (1024 * 1024)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -818,8 +827,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "druid-sample-middlemanagers-0",
-          "value": "druid-sample-middlemanagers-0"
+          "text": "druid-sample-coordinators-0",
+          "value": "druid-sample-coordinators-0"
         },
         "datasource": "${datasource}",
         "definition": "label_values(druid_service_heartbeat{namespace=~\"$namespace\",job=~\"${app}.*\"},pod)",
@@ -848,12 +857,12 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "KubeDB / Druid / Pod",
   "uid": "5WZ_XCASk",
-  "version": 34
+  "version": 38
 }
