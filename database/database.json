@@ -3,7 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -17,12 +17,12 @@
   "gnetId": 12155,
   "graphTooltip": 0,
   "id": 31,
-  "iteration": 1711021226071,
+  "iteration": 1711089572456,
   "links": [],
   "panels": [
     {
       "collapsed": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -103,7 +103,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "min(druid_service_heartbeat{job=\"$app\", namespace=\"$namespace\"})",
+          "expr": "min(druid_service_heartbeat{job=\"$app-stats\", namespace=\"$namespace\"})",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -183,7 +183,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "min(druid_zk_connected{job=\"$app\", namespace=\"$namespace\"})",
+          "expr": "min(druid_zk_connected{job=\"$app-stats\", namespace=\"$namespace\"})",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -242,7 +242,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "floor(count(count_values(\"dataSource\", druid_segment_size{job=\"$app\", namespace=\"$namespace\"})))",
+          "expr": "floor(count(count_values(\"dataSource\", druid_segment_size{job=\"$app-stats\", namespace=\"$namespace\"})))",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
@@ -302,7 +302,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "ceil(sum(druid_segment_loadqueue_count{job=\"$app\", namespace=\"$namespace\"}))",
+          "expr": "ceil(sum(druid_segment_loadqueue_count{job=\"$app-stats\", namespace=\"$namespace\"}))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -366,7 +366,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "count_over_time(druid_task_success_count_created{job=\"$app\", namespace=\"$namespace\"}[$__range])",
+          "expr": "count_over_time(druid_task_success_count_created{job=\"$app-stats\", namespace=\"$namespace\"}[$__range])",
           "interval": "",
           "legendFormat": "{{task_status}}",
           "refId": "A"
@@ -426,7 +426,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(druid_segment_size{job=\"$app\", namespace=\"$namespace\"}) / (1024 * 1024)",
+          "expr": "sum(druid_segment_size{job=\"$app-stats\", namespace=\"$namespace\"}) / (1024 * 1024)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -496,7 +496,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(druid_segment_loadqueue_size{job=\"$app\", namespace=\"$namespace\"}) / (1024 * 1024)",
+          "expr": "sum(druid_segment_loadqueue_size{job=\"$app-stats\", namespace=\"$namespace\"}) / (1024 * 1024)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -509,7 +509,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -569,7 +569,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(increase(druid_jvm_mem_used{job=\"$app\", namespace=\"$namespace\"}[$__range])) by (pod)",
+          "expr": "avg(increase(druid_jvm_mem_used{job=\"$app-stats\", namespace=\"$namespace\"}[$__range])) by (pod)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -665,7 +665,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(increase(druid_jvm_pool_used{job=\"$app\", namespace=\"$namespace\"}[$__range])) by (pod)",
+          "expr": "avg(increase(druid_jvm_pool_used{job=\"$app-stats\", namespace=\"$namespace\"}[$__range])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -789,7 +789,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "druid_jvm_bufferpool_count{bufferpoolName=\"direct\", job=\"$app\", namespace=\"$namespace\"}",
+          "expr": "druid_jvm_bufferpool_count{bufferpoolName=\"direct\", job=\"$app-stats\", namespace=\"$namespace\"}",
           "hide": false,
           "interval": "",
           "legendFormat": "{{pod}}",
@@ -854,7 +854,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "druid_jvm_gc_cpu_total{job=\"$app\", namespace=\"$namespace\"}",
+          "expr": "druid_jvm_gc_cpu_total{job=\"$app-stats\", namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -866,7 +866,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -932,7 +932,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(druid_segment_size{job=\"$app\", namespace=\"$namespace\"})",
+          "expr": "sum(druid_segment_size{job=\"$app-stats\", namespace=\"$namespace\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -991,7 +991,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(druid_segment_size{job=\"$app\", namespace=\"$namespace\"}[$__range])) by (dataSource)",
+          "expr": "sum(increase(druid_segment_size{job=\"$app-stats\", namespace=\"$namespace\"}[$__range])) by (dataSource)",
           "interval": "",
           "legendFormat": "{{dataSource}}",
           "refId": "A"
@@ -1040,7 +1040,7 @@
     },
     {
       "collapsed": false,
-      "datasource": "Prometheus",
+      "datasource": "${datasource}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1100,7 +1100,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(druid_ingest_events_processed_total{job=\"$app\", namespace=\"$namespace\"}[$__range])) by (dataSource)",
+          "expr": "sum(increase(druid_ingest_events_processed_total{job=\"$app-stats\", namespace=\"$namespace\"}[$__range])) by (dataSource)",
           "interval": "",
           "legendFormat": "{{host}}",
           "refId": "A"
@@ -1195,7 +1195,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum(increase(druid_ingest_kafka_lag{job=\"$app\", namespace=\"$namespace\"}[$__range]))",
+          "expr": "sum(increase(druid_ingest_kafka_lag{job=\"$app-stats\", namespace=\"$namespace\"}[$__range]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1305,11 +1305,11 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "druid-sample-stats",
-          "value": "druid-sample-stats"
+          "text": "druid-sample",
+          "value": "druid-sample"
         },
-        "datasource": null,
-        "definition": "label_values(druid_service_heartbeat{job=~\".+\",namespace=~\"$namespace\"},job)",
+        "datasource": "${datasource}",
+        "definition": "label_values(kubedb_com_druid_created{druid=~\".+\",namespace=~\"$namespace\"},app)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1319,7 +1319,7 @@
         "name": "app",
         "options": [],
         "query": {
-          "query": "label_values(druid_service_heartbeat{job=~\".+\",namespace=~\"$namespace\"},job)",
+          "query": "label_values(kubedb_com_druid_created{druid=~\".+\",namespace=~\"$namespace\"},app)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -1354,5 +1354,5 @@
   "timezone": "",
   "title": "KubeDB / Druid / Database",
   "uid": "druidDatabase",
-  "version": 21
+  "version": 27
 }

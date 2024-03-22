@@ -3,7 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": "${datasource}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1711021229523,
+  "iteration": 1711090676311,
   "links": [],
   "panels": [
     {
@@ -102,7 +102,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_service_heartbeat{job=\"$app\", namespace=\"$namespace\", pod=\"$pod\", namespace=\"$namespace\"}",
+          "expr": "druid_service_heartbeat{job=\"$app-stats\", namespace=\"$namespace\", pod=\"$pod\", namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -182,7 +182,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_zk_connected{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}",
+          "expr": "druid_zk_connected{job=\"$app-stats\", pod=\"$pod\", namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -255,7 +255,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(increase(druid_jvm_mem_used{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}[$__range])) by (pod)",
+          "expr": "avg(increase(druid_jvm_mem_used{job=\"$app-stats\", pod=\"$pod\", namespace=\"$namespace\"}[$__range])) by (pod)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{pod}}",
@@ -351,7 +351,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(increase(druid_jvm_pool_used{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}[$__range])) by (pod)",
+          "expr": "avg(increase(druid_jvm_pool_used{job=\"$app-stats\", pod=\"$pod\", namespace=\"$namespace\"}[$__range])) by (pod)",
           "interval": "",
           "legendFormat": "{{pod}}",
           "refId": "A"
@@ -475,7 +475,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "druid_jvm_bufferpool_count{bufferpoolName=\"direct\", job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}",
+          "expr": "druid_jvm_bufferpool_count{bufferpoolName=\"direct\", job=\"$app-stats\", pod=\"$pod\", namespace=\"$namespace\"}",
           "hide": false,
           "interval": "",
           "legendFormat": "{{pod}}",
@@ -540,7 +540,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "druid_jvm_gc_cpu_total{job=\"$app\", pod=\"$pod\", namespace=\"$namespace\"}",
+          "expr": "druid_jvm_gc_cpu_total{job=\"$app-stats\", pod=\"$pod\", namespace=\"$namespace\"}",
           "interval": "",
           "legendFormat": "{{pod}}",
           "range": true,
@@ -599,7 +599,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_jvm_mem_init{job=\"$app\", pod=\"$pod\", memKind=\"nonheap\", namespace=\"$namespace\"}/ (1024 * 1024)",
+          "expr": "druid_jvm_mem_init{job=\"$app-stats\", pod=\"$pod\", memKind=\"nonheap\", namespace=\"$namespace\"}/ (1024 * 1024)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -660,7 +660,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_jvm_mem_init{job=\"$app\", pod=\"$pod\", memKind=\"heap\", namespace=\"$namespace\"}/ (1024 * 1024)",
+          "expr": "druid_jvm_mem_init{job=\"$app-stats\", pod=\"$pod\", memKind=\"heap\", namespace=\"$namespace\"}/ (1024 * 1024)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -721,7 +721,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "druid_jvm_mem_max{job=\"$app\", pod=\"$pod\", memKind=\"heap\", namespace=\"$namespace\"}/ (1024 * 1024)",
+          "expr": "druid_jvm_mem_max{job=\"$app-stats\", pod=\"$pod\", memKind=\"heap\", namespace=\"$namespace\"}/ (1024 * 1024)",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -796,11 +796,11 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "druid-sample-stats",
-          "value": "druid-sample-stats"
+          "text": "druid-sample",
+          "value": "druid-sample"
         },
         "datasource": null,
-        "definition": "label_values(druid_service_heartbeat{job=~\".+\",namespace=~\"$namespace\"},job)",
+        "definition": "label_values(kubedb_com_druid_status_phase{namespace=~\"$namespace\"},app)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -810,7 +810,7 @@
         "name": "app",
         "options": [],
         "query": {
-          "query": "label_values(druid_service_heartbeat{job=~\".+\",namespace=~\"$namespace\"},job)",
+          "query": "label_values(kubedb_com_druid_status_phase{namespace=~\"$namespace\"},app)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -827,8 +827,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "druid-sample-coordinators-0",
-          "value": "druid-sample-coordinators-0"
+          "text": "druid-sample-brokers-0",
+          "value": "druid-sample-brokers-0"
         },
         "datasource": "${datasource}",
         "definition": "label_values(druid_service_heartbeat{namespace=~\"$namespace\",job=~\"${app}.*\"},pod)",
@@ -857,12 +857,12 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "KubeDB / Druid / Pod",
   "uid": "5WZ_XCASk",
-  "version": 38
+  "version": 46
 }
